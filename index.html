@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices – Adopter une démarche mercatique</title>
+<style>
+/* ── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f5f6fa;
+  --surface:   #ffffff;
+  --card:      #ffffff;
+  --border:    #dfe3ec;
+  --border-hi: #b9c0d3;
+  --text:      #1f2433;
+  --text-dim:  #5d6478;
+  --accent:    #e0a400;
+  --green:     #1d8f47;
+  --red:       #c93838;
+  --blue:      #2f78c0;
+  --purple:    #7350b3;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --radius:    10px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── HEADER ──────────────────────────────────────────────── */
+.site-header {
+  background: linear-gradient(135deg, #ffffff 0%, #eef1f8 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 24px 36px;
+  text-align: center;
+}
+.site-header .kicker {
+  display: inline-block;
+  background: var(--accent);
+  color: #1f2433;
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 3px;
+  margin-bottom: 18px;
+}
+.site-header h1 {
+  font-family: var(--font-head);
+  font-size: clamp(22px, 5vw, 38px);
+  font-weight: 800;
+  color: #141826;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+.site-header .sub {
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 300;
+  max-width: 520px;
+  margin: 0 auto 24px;
+}
+
+/* ── NAV ANCRES ──────────────────────────────────────────── */
+.nav-anchors {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.nav-anchors a {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  text-decoration: none;
+  transition: border-color .15s, color .15s;
+}
+.nav-anchors a:hover { border-color: var(--accent); color: #9a7000; }
+
+/* ── CONTENEUR PRINCIPAL ─────────────────────────────────── */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* ── TITRE DE BLOC ───────────────────────────────────────── */
+.bloc-titre {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 52px 0 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.bloc-titre:first-child { margin-top: 0; }
+.bloc-titre .icone {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.bloc-titre h2 {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 800;
+  color: #141826;
+}
+
+/* ── MÉMO FORMULE ────────────────────────────────────────── */
+.memo {
+  background: #eef8f1;
+  border: 1px solid #cfe8d7;
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+.memo .memo-titre {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.memo code {
+  display: block;
+  background: #ffffff;
+  border: 1px solid #d9eedf;
+  border-radius: 5px;
+  padding: 8px 14px;
+  color: #17643a;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  margin: 4px 0;
+}
+.memo .note {
+  color: var(--text-dim);
+  font-size: 12.5px;
+  margin-top: 6px;
+}
+
+/* ── CARTE EXERCICE ──────────────────────────────────────── */
+.exo-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  overflow: hidden;
+  transition: border-color .15s;
+}
+.exo-card:hover { border-color: var(--border-hi); }
+
+.exo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+.exo-header::-webkit-details-marker { display: none; }
+
+.exo-num {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  min-width: 40px;
+}
+.badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 9px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.badge-1 { background: #e6f5ec; color: var(--green); border: 1px solid #bfe3cc; }
+.badge-2 { background: #fdf4dc; color: #9a7000; border: 1px solid #f0dc9e; }
+.badge-3 { background: #fbe9e9; color: var(--red); border: 1px solid #f1c4c4; }
+.badge-exam { background: #f0eafa; color: var(--purple); border: 1px solid #d8cbf0; }
+
+.exo-titre-txt {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+}
+.chevron {
+  color: var(--text-dim);
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: transform .2s;
+}
+details[open] .chevron { transform: rotate(180deg); }
+
+/* ── CORPS DE L'EXERCICE ─────────────────────────────────── */
+.exo-body {
+  padding: 0 18px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.contexte {
+  background: #eef4fb;
+  border-left: 3px solid var(--blue);
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.contexte strong { color: #141826; }
+
+.tableau-donnees {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 12px 0;
+  background: #fff;
+}
+.tableau-donnees th {
+  background: #eef1f8;
+  color: var(--text-dim);
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.tableau-donnees td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.tableau-donnees tr:last-child td { border-bottom: none; }
+.tableau-donnees td.num { font-weight: 600; color: #141826; }
+.tableau-donnees tr.total-row td {
+  background: #eef1f8;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: #9a7000;
+}
+
+.questions { margin: 18px 0 0; }
+.question {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: flex-start;
+}
+.question .q-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  color: #1f2433;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 11px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.question p { font-size: 14px; margin: 0; }
+
+/* ── ORDRE DE GRANDEUR ───────────────────────────────────── */
+.ordre-grandeur {
+  background: #fff8e1;
+  border: 1px solid #f0dc9e;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  color: #7a5a00;
+  margin: 12px 0 0;
+}
+.ordre-grandeur::before { content: "💡 "; }
+
+/* ── BOUTON CORRECTION ───────────────────────────────────── */
+.btn-corrige {
+  background: none;
+  border: 1px solid var(--border-hi);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  margin-top: 18px;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-corrige:hover { border-color: var(--green); color: var(--green); }
+
+/* ── CORRECTION ──────────────────────────────────────────── */
+.correction {
+  display: none;
+  background: #eef8f1;
+  border: 1px solid #cfe8d7;
+  border-radius: 6px;
+  padding: 16px 18px;
+  margin-top: 14px;
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+.correction.visible { display: block; }
+.correction .corr-etape {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d3e9da;
+}
+.correction .corr-etape:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.correction .c-num {
+  display: inline-block;
+  background: var(--green);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 18px;
+  margin-right: 6px;
+}
+.correction code {
+  display: block;
+  background: #ffffff;
+  border: 1px solid #d9eedf;
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: #17643a;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  margin: 5px 0;
+}
+.correction .res {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: #141826;
+}
+.correction .conclu {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #2f5e40;
+  font-style: italic;
+}
+.correction .tableau-corr {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin: 8px 0;
+  background: #fff;
+}
+.correction .tableau-corr th {
+  background: #e2f2e7;
+  color: var(--text-dim);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  text-align: left;
+}
+.correction .tableau-corr td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #d3e9da;
+  color: #2c3a31;
+}
+.correction .tableau-corr td.val {
+  font-weight: 700;
+  color: var(--green);
+}
+.correction .tableau-corr tr.t-total td {
+  background: #e2f2e7;
+  font-weight: 700;
+  color: #7a5a00;
+}
+
+/* ── SÉPARATEUR ──────────────────────────────────────────── */
+hr.section-sep {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 54px 0 0;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 20px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .exo-titre-txt { font-size: 13px; }
+  .contexte { font-size: 13px; }
+  .tableau-donnees { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="kicker">🎯 Exercices bloc 3 – Bac pro MCV</div>
+  <h1>Adopter une<br>démarche mercatique</h1>
+  <p class="sub">15 exercices progressifs – des étapes de la démarche mercatique au plan de marchéage</p>
+  <nav class="nav-anchors">
+    <a href="#demarche">🧭 Démarche et critères (5 ex.)</a>
+    <a href="#segmentation">👥 Profil, segmentation, ciblage (5 ex.)</a>
+    <a href="#positionnement">🎯 Positionnement et plan de marchéage (5 ex.)</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 1 – DÉMARCHE MERCATIQUE ET CRITÈRES
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="demarche">
+  <span class="icone">🧭</span>
+  <h2>Bloc 1 – Les étapes de la démarche mercatique et les critères de segmentation</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo notions</div>
+  <code>① Phase d'étude : connaître le marché, les clients, les concurrents, l'environnement</code>
+  <code>② Phase stratégique : segmenter, cibler, positionner, définir un plan de marchéage cohérent</code>
+  <code>③ Phase opérationnelle : mettre en place les actions concrètes sur le terrain</code>
+  <p class="note">Critères liés au consommateur : <strong>démographiques, géographiques, socio-économiques, psychographiques</strong>. Critères liés à la consommation du produit : <strong>comportementaux, avantages recherchés</strong>.</p>
+</div>
+
+<!-- EX 1 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 1</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Classer des actions dans les trois phases de la démarche</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Le supermarché <em>Maxi Marché</em> souhaite revoir son offre de produits bio. Le responsable a listé les actions suivantes :<br><br>
+      a) Interroger 400 clients du magasin sur leurs habitudes d'achat de produits bio<br>
+      b) Relever le nombre de références bio proposées par les enseignes concurrentes<br>
+      c) Choisir le groupe de clients à viser en priorité<br>
+      d) Définir l'image que l'on veut donner au rayon bio par rapport aux concurrents<br>
+      e) Installer des stop-rayons « bio » dans le rayon fruits et légumes<br>
+      f) Consulter des articles sur les tendances de consommation du bio<br>
+      g) Mettre en place un îlot de produits bio à l'entrée du magasin<br>
+      h) Découper la clientèle en groupes homogènes
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Classez chaque action dans la phase d'étude, la phase stratégique ou la phase opérationnelle.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Expliquez pourquoi la phase d'étude doit toujours être réalisée en premier.</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Indice :</strong> chercher de l'information = étude ; faire des choix = stratégie ; agir concrètement en magasin = opérationnel.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <table class="tableau-corr">
+          <thead><tr><th>Phase</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td>Phase d'étude</td><td class="val">a, b, f</td></tr>
+            <tr><td>Phase stratégique</td><td class="val">c (ciblage), d (positionnement), h (segmentation)</td></tr>
+            <tr><td>Phase opérationnelle</td><td class="val">e, g</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="conclu">Les choix stratégiques (cible, positionnement, plan de marchéage) doivent s'appuyer sur une connaissance fiable du marché, des clients et des concurrents. Sans étude, l'entreprise risque de proposer une offre qui ne correspond pas aux attentes des clients.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 2 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 2</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Identifier la nature des critères de segmentation</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Voici une liste de critères qui peuvent servir à segmenter la clientèle d'un magasin :<br><br>
+      1. l'âge – 2. la commune d'habitation – 3. la profession – 4. la fréquence d'achat – 5. le style de vie (sportif, casanier…) – 6. le sexe – 7. le revenu du foyer – 8. la recherche d'un produit bon pour la santé – 9. la quantité achetée par mois – 10. la sensibilité à l'écologie – 11. la taille de la ville – 12. la recherche du prix le plus bas
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Classez chaque critère dans l'une des six familles : démographique, géographique, socio-économique, psychographique, comportemental, avantages recherchés.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Indiquez quelles familles de critères sont liées au consommateur et lesquelles sont liées à la consommation du produit.</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Indice :</strong> « psychographique » = personnalité, valeurs, style de vie. « Comportemental » = la façon dont le client achète et consomme.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <table class="tableau-corr">
+          <thead><tr><th>Famille</th><th>Critères</th></tr></thead>
+          <tbody>
+            <tr><td>Démographique</td><td class="val">1 (âge), 6 (sexe)</td></tr>
+            <tr><td>Géographique</td><td class="val">2 (commune), 11 (taille de la ville)</td></tr>
+            <tr><td>Socio-économique</td><td class="val">3 (profession), 7 (revenu)</td></tr>
+            <tr><td>Psychographique</td><td class="val">5 (style de vie), 10 (sensibilité écologique)</td></tr>
+            <tr><td>Comportemental</td><td class="val">4 (fréquence d'achat), 9 (quantité achetée)</td></tr>
+            <tr><td>Avantages recherchés</td><td class="val">8 (santé), 12 (prix bas)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Liés au consommateur : démographiques, géographiques, socio-économiques, psychographiques.</p>
+        <p class="res">Liés à la consommation du produit : comportementaux, avantages recherchés.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 3 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 3</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Analyser des succès et des échecs commerciaux</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Voici six lancements de produits bio et leur résultat :<br><br>
+      <strong>A.</strong> Une barre de céréales bio vendue 30 % plus cher que la concurrence, dans un emballage individuel en plastique → <strong>échec</strong><br>
+      <strong>B.</strong> Un fromage fondu bio pour enfants, avec une publicité ciblant les parents et mettant en avant la démarche écologique → <strong>succès</strong><br>
+      <strong>C.</strong> Un yaourt bio dont la recette, bonne pour la santé, est très appréciée des consommateurs → <strong>succès</strong><br>
+      <strong>D.</strong> Un vin bio vendu en direct par le producteur, avec une traçabilité complète → <strong>succès</strong><br>
+      <strong>E.</strong> Une gamme de cosmétiques bio dont la publicité est confuse : les clients ne comprennent pas les bénéfices du produit → <strong>échec</strong><br>
+      <strong>F.</strong> Un jus de fruits bio vendu uniquement dans des stations-service → <strong>échec</strong>
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Pour chaque cas, indiquez le ou les éléments du plan de marchéage (produit, prix, place, promotion) responsables du succès ou de l'échec.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Quel enseignement peut-on tirer de ces exemples pour une entreprise qui lance un produit ?</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <table class="tableau-corr">
+          <thead><tr><th>Cas</th><th>Élément(s) du plan de marchéage</th></tr></thead>
+          <tbody>
+            <tr><td>A</td><td class="val">Prix (trop cher) et produit (emballage peu écologique)</td></tr>
+            <tr><td>B</td><td class="val">Promotion (publicité bien ciblée)</td></tr>
+            <tr><td>C</td><td class="val">Produit (qualité, goût)</td></tr>
+            <tr><td>D</td><td class="val">Place (vente directe) et produit (traçabilité)</td></tr>
+            <tr><td>E</td><td class="val">Promotion (communication maladroite)</td></tr>
+            <tr><td>F</td><td class="val">Place (circuit de distribution inadapté)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="conclu">Un seul élément mal choisi du plan de marchéage peut faire échouer un bon produit. Les quatre éléments doivent être cohérents entre eux et adaptés à la cible : c'est l'enjeu de la démarche mercatique.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 4 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 4</span>
+    <span class="badge badge-2">⬆⬆ intermédiaire</span>
+    <span class="exo-titre-txt">Vrai ou faux – justifier sa réponse</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Indiquez si chaque affirmation est vraie ou fausse. Corrigez les affirmations fausses.<br><br>
+      1. La phase d'étude consiste à fixer les prix des produits qui vont être vendus.<br>
+      2. L'âge est un critère de segmentation socio-économique.<br>
+      3. Le niveau de consommation d'un produit est un critère comportemental.<br>
+      4. Le mapping est aussi appelé « carte perceptuelle ».<br>
+      5. Le positionnement est la place qu'occupe un produit dans l'esprit du client par rapport aux concurrents.<br>
+      6. Le plan de marchéage s'appelle aussi « plan de découverte ».<br>
+      7. Le P « prix » consiste à pratiquer les prix les moins chers possibles.<br>
+      8. Le P « produit » consiste à définir l'emplacement des produits dans le magasin.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Répondez par vrai ou faux et corrigez les affirmations fausses.</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Indice :</strong> la moitié des affirmations sont fausses.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <table class="tableau-corr">
+          <thead><tr><th>N°</th><th>Réponse</th><th>Correction</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="val">Faux</td><td>La phase d'étude sert à connaître le marché, les clients et les concurrents. Le prix est fixé plus tard.</td></tr>
+            <tr><td>2</td><td class="val">Faux</td><td>L'âge est un critère démographique.</td></tr>
+            <tr><td>3</td><td class="val">Vrai</td><td>–</td></tr>
+            <tr><td>4</td><td class="val">Vrai</td><td>–</td></tr>
+            <tr><td>5</td><td class="val">Vrai</td><td>–</td></tr>
+            <tr><td>6</td><td class="val">Faux</td><td>Le plan de marchéage s'appelle aussi « mix marketing » ou « marketing mix ».</td></tr>
+            <tr><td>7</td><td class="val">Faux</td><td>Le prix doit être adapté à la demande et cohérent avec le positionnement.</td></tr>
+            <tr><td>8</td><td class="val">Faux</td><td>Le P « produit » consiste à choisir la gamme proposée. L'emplacement relève du P « place ».</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 5 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 5</span>
+    <span class="badge badge-2">⬆⬆ intermédiaire</span>
+    <span class="exo-titre-txt">Analyser un questionnaire client</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Le responsable de <em>Maxi Marché</em> a rédigé le questionnaire suivant, distribué aux clients en caisse :<br><br>
+      Q1. Vous êtes : ☐ un homme ☐ une femme<br>
+      Q2. Votre âge : ☐ moins de 25 ans ☐ 25-44 ans ☐ 45 ans et plus<br>
+      Q3. Votre profession : …………<br>
+      Q4. Votre situation familiale : ☐ seul(e) ☐ en couple ☐ en couple avec enfant(s)<br>
+      Q5. Quels rayons fréquentez-vous le plus ? …………<br>
+      Q6. Achetez-vous des produits bio ? ☐ oui ☐ non<br>
+      Q7. Si oui, pour quelle raison principale ? ☐ santé ☐ goût ☐ environnement ☐ bien-être animal
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>À quelle phase de la démarche mercatique ce questionnaire correspond-il ?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Distinguez les questions qui permettent d'identifier le client et celles qui portent sur son comportement d'achat ou sur les avantages recherchés.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Proposez deux questions supplémentaires utiles et justifiez leur intérêt.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Phase d'étude : le questionnaire permet de mieux connaître les clients.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <table class="tableau-corr">
+          <thead><tr><th>Questions</th><th>Type de critère</th></tr></thead>
+          <tbody>
+            <tr><td>Q1, Q2, Q4</td><td class="val">Identification – critères démographiques</td></tr>
+            <tr><td>Q3</td><td class="val">Identification – critère socio-économique</td></tr>
+            <tr><td>Q5, Q6</td><td class="val">Comportement d'achat – critères comportementaux</td></tr>
+            <tr><td>Q7</td><td class="val">Avantages recherchés</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p>Exemples acceptés :</p>
+        <p>• « À quelle fréquence venez-vous dans le magasin ? » : permet de distinguer les clients fidèles des clients occasionnels.</p>
+        <p>• « Quel montant dépensez-vous en moyenne par visite ? » : permet de distinguer les gros et les petits clients.</p>
+        <p>• « Dans quelle commune habitez-vous ? » : permet de connaître la zone d'où viennent les clients (critère géographique).</p>
+        <p>• « Qu'est-ce qui vous empêche d'acheter des produits bio ? » : permet de connaître les freins.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 2 – PROFIL, SEGMENTATION, CIBLAGE
+══════════════════════════════════════════════════════════ -->
+<hr class="section-sep">
+<div class="bloc-titre" id="segmentation">
+  <span class="icone">👥</span>
+  <h2>Bloc 2 – Identifier le profil des clients, segmenter et cibler</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo formule</div>
+  <code>Pourcentage = effectif ÷ effectif total × 100</code>
+  <code>Effectif = effectif total × pourcentage</code>
+  <code>CA potentiel d'un segment = nombre de clients × dépense moyenne</code>
+  <p class="note">Un segment est un groupe de clients <strong>homogène</strong> (mêmes caractéristiques). La cible est le ou les segments choisis par l'entreprise.</p>
+</div>
+
+<!-- EX 6 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 6</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Dresser le profil de la clientèle à partir d'une enquête</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Une enquête a été menée auprès de <strong>500 clients</strong> de <em>Maxi Marché</em>. Voici les résultats :
+      <table class="tableau-donnees">
+        <thead><tr><th>Critère</th><th>Catégorie</th><th>Effectif</th></tr></thead>
+        <tbody>
+          <tr><td>Sexe</td><td>Hommes</td><td class="num">210</td></tr>
+          <tr><td>Sexe</td><td>Femmes</td><td class="num">290</td></tr>
+          <tr><td>Profession</td><td>Cadres, professions intermédiaires, artisans-commerçants (PCS+)</td><td class="num">180</td></tr>
+          <tr><td>Profession</td><td>Employés, ouvriers (PCS–)</td><td class="num">145</td></tr>
+          <tr><td>Profession</td><td>Retraités, sans activité</td><td class="num">175</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Calculez la part (en %) des hommes et des femmes.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Calculez la part (en %) de chaque groupe de professions.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Nommez la famille de critères utilisée pour chaque partie du tableau.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">4</span>
+        <p>Rédigez une phrase qui résume le profil de la clientèle.</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Ordre de grandeur :</strong> 250 clients représenteraient 50 %. Les femmes (290) sont donc un peu plus de la moitié. Chaque total doit faire 100 %.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <code>Hommes : 210 ÷ 500 × 100 = 42 %</code>
+        <code>Femmes : 290 ÷ 500 × 100 = 58 %</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <code>PCS+ : 180 ÷ 500 × 100 = 36 %</code>
+        <code>PCS– : 145 ÷ 500 × 100 = 29 %</code>
+        <code>Retraités, sans activité : 175 ÷ 500 × 100 = 35 %</code>
+        <p class="res">Vérification : 36 + 29 + 35 = <strong>100 %</strong></p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="res">Sexe : critère démographique. Profession : critère socio-économique.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span>
+        <p class="conclu">La clientèle est majoritairement féminine (58 %). Les PCS+ sont le groupe le plus important (36 %), mais les personnes retraitées ou sans activité représentent une part élevée (35 %).</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 7 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 7</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Compléter les premiers niveaux d'un arbre de segmentation</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Sur les <strong>500 personnes</strong> interrogées :<br><br>
+      • <strong>60 %</strong> consomment des produits bio, les autres n'en consomment pas.<br>
+      • Parmi les consommateurs de bio : <strong>60 %</strong> de femmes et <strong>40 %</strong> d'hommes.<br>
+      • Parmi les non-consommateurs, les raisons citées sont (plusieurs réponses possibles) :<br>
+      &nbsp;&nbsp;– prix trop élevé : <strong>75 %</strong><br>
+      &nbsp;&nbsp;– doute sur la qualité : <strong>60 %</strong><br>
+      &nbsp;&nbsp;– manque d'information : <strong>20 %</strong>
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Calculez le nombre de consommateurs et de non-consommateurs de produits bio.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Calculez le nombre de femmes et d'hommes parmi les consommateurs.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Calculez le nombre de non-consommateurs pour chaque raison citée.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">4</span>
+        <p>Additionnez les résultats de la question 3. Pourquoi le total dépasse-t-il le nombre de non-consommateurs ?</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Attention :</strong> les pourcentages du 2e niveau s'appliquent au sous-groupe (consommateurs ou non-consommateurs), pas aux 500 personnes.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <code>Consommateurs : 500 × 0,60 = 300</code>
+        <code>Non-consommateurs : 500 − 300 = 200</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <code>Femmes : 300 × 0,60 = 180</code>
+        <code>Hommes : 300 × 0,40 = 120</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <code>Prix trop élevé : 200 × 0,75 = 150</code>
+        <code>Doute sur la qualité : 200 × 0,60 = 120</code>
+        <code>Manque d'information : 200 × 0,20 = 40</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span>
+        <code>150 + 120 + 40 = 310</code>
+        <p class="conclu">Le total (310) dépasse 200 car une même personne pouvait donner plusieurs raisons. Le prix est le frein principal, suivi du doute sur la qualité.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 8 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 8</span>
+    <span class="badge badge-2">⬆⬆ intermédiaire</span>
+    <span class="exo-titre-txt">Calculer le CA potentiel des segments et choisir la cible</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Les <strong>300 consommateurs de bio</strong> de l'exercice 7 ont été répartis en segments. La dépense moyenne mensuelle en produits bio de chaque segment est connue :
+      <table class="tableau-donnees">
+        <thead><tr><th>Segment</th><th>Nombre de clients</th><th>Dépense moyenne / mois</th></tr></thead>
+        <tbody>
+          <tr><td>Femmes PCS+ de 45 ans et plus</td><td class="num">36</td><td class="num">95 €</td></tr>
+          <tr><td>Femmes PCS+ de 25 à 44 ans</td><td class="num">36</td><td class="num">70 €</td></tr>
+          <tr><td>Femmes PCS+ de moins de 25 ans</td><td class="num">18</td><td class="num">45 €</td></tr>
+          <tr><td>Femmes PCS– de 45 ans et plus</td><td class="num">54</td><td class="num">55 €</td></tr>
+          <tr><td>Femmes PCS– de moins de 45 ans</td><td class="num">36</td><td class="num">30 €</td></tr>
+          <tr><td>Hommes achetant pour la santé</td><td class="num">84</td><td class="num">40 €</td></tr>
+          <tr><td>Hommes achetant pour le goût</td><td class="num">36</td><td class="num">40 €</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Calculez le CA potentiel mensuel de chaque segment, puis le CA potentiel total.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Identifiez le segment le plus intéressant et calculez sa part dans le CA potentiel total (arrondir à 0,1 %).</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Le segment « hommes achetant pour la santé » compte plus de clients. Pourquoi n'est-il pas le plus intéressant ?</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Ordre de grandeur :</strong> 300 clients dépensant en moyenne environ 50 € → le CA potentiel total sera proche de 15 000 € par mois.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <table class="tableau-corr">
+          <thead><tr><th>Segment</th><th>Calcul</th><th>CA potentiel</th></tr></thead>
+          <tbody>
+            <tr><td>Femmes PCS+ 45 ans et plus</td><td>36 × 95</td><td class="val">3 420 €</td></tr>
+            <tr><td>Femmes PCS+ 25-44 ans</td><td>36 × 70</td><td class="val">2 520 €</td></tr>
+            <tr><td>Femmes PCS+ moins de 25 ans</td><td>18 × 45</td><td class="val">810 €</td></tr>
+            <tr><td>Femmes PCS– 45 ans et plus</td><td>54 × 55</td><td class="val">2 970 €</td></tr>
+            <tr><td>Femmes PCS– moins de 45 ans</td><td>36 × 30</td><td class="val">1 080 €</td></tr>
+            <tr><td>Hommes santé</td><td>84 × 40</td><td class="val">3 360 €</td></tr>
+            <tr><td>Hommes goût</td><td>36 × 40</td><td class="val">1 440 €</td></tr>
+            <tr class="t-total"><td colspan="2">CA potentiel total mensuel</td><td class="val">15 600 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <code>3 420 ÷ 15 600 × 100 = 21,9 %</code>
+        <p class="res">Segment le plus intéressant : <strong>femmes PCS+ de 45 ans et plus</strong> (3 420 € par mois, soit 21,9 % du CA potentiel).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Les hommes achetant pour la santé sont plus nombreux (84), mais ils dépensent en moyenne 40 € par mois contre 95 € pour les femmes PCS+ de 45 ans et plus. Le CA potentiel dépend du nombre de clients et de leur dépense moyenne.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 9 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 9</span>
+    <span class="badge badge-2">⬆⬆ intermédiaire</span>
+    <span class="exo-titre-txt">Cibler des clients à l'aide d'une grille de score</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Pour lancer son rayon bio, <em>Maxi Marché</em> veut envoyer des bons de réduction aux clients de sa carte de fidélité ayant obtenu un score <strong>d'au moins 50 points</strong>. Grille de score :<br><br>
+      • <strong>Panier moyen</strong> : 5 points par tranche complète de 10 €<br>
+      • <strong>Ancienneté</strong> : 3 points par année de fidélité<br>
+      • <strong>Âge</strong> : moins de 30 ans = 5 points ; 30 à 44 ans = 10 points ; 45 à 60 ans = 20 points ; plus de 60 ans = 30 points
+      <table class="tableau-donnees">
+        <thead><tr><th>Client</th><th>Panier moyen</th><th>Ancienneté</th><th>Âge</th></tr></thead>
+        <tbody>
+          <tr><td>Mme Bertrand</td><td class="num">32 €</td><td class="num">10 ans</td><td class="num">64 ans</td></tr>
+          <tr><td>Mme Hydé</td><td class="num">45 €</td><td class="num">5 ans</td><td class="num">52 ans</td></tr>
+          <tr><td>M. Louni</td><td class="num">18 €</td><td class="num">7 ans</td><td class="num">35 ans</td></tr>
+          <tr><td>Mme Monteyne</td><td class="num">12 €</td><td class="num">1 an</td><td class="num">24 ans</td></tr>
+          <tr><td>M. Delestre</td><td class="num">64 €</td><td class="num">2 ans</td><td class="num">61 ans</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Calculez le score de chaque client.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Déterminez les clients qui recevront les bons de réduction.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Indiquez la famille de critères à laquelle appartient chaque élément de la grille.</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Attention :</strong> seules les tranches <strong>complètes</strong> de 10 € comptent. Un panier de 32 € = 3 tranches, pas 3,2.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <table class="tableau-corr">
+          <thead><tr><th>Client</th><th>Panier</th><th>Ancienneté</th><th>Âge</th><th>Total</th></tr></thead>
+          <tbody>
+            <tr><td>Mme Bertrand</td><td>3 × 5 = 15</td><td>10 × 3 = 30</td><td>30</td><td class="val">75</td></tr>
+            <tr><td>Mme Hydé</td><td>4 × 5 = 20</td><td>5 × 3 = 15</td><td>20</td><td class="val">55</td></tr>
+            <tr><td>M. Louni</td><td>1 × 5 = 5</td><td>7 × 3 = 21</td><td>10</td><td class="val">36</td></tr>
+            <tr><td>Mme Monteyne</td><td>1 × 5 = 5</td><td>1 × 3 = 3</td><td>5</td><td class="val">13</td></tr>
+            <tr><td>M. Delestre</td><td>6 × 5 = 30</td><td>2 × 3 = 6</td><td>30</td><td class="val">66</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Bons envoyés à : <strong>Mme Bertrand (75), M. Delestre (66), Mme Hydé (55)</strong>.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="res">Panier moyen et ancienneté : critères comportementaux. Âge : critère démographique.</p>
+        <p class="conclu">La grille de score permet de cibler précisément les clients les plus intéressants et d'éviter d'envoyer des bons à des clients peu susceptibles de répondre à l'offre.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 10 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 10</span>
+    <span class="badge badge-3">⬆⬆⬆ niveau examen</span>
+    <span class="exo-titre-txt">Exploiter les freins et les avantages recherchés</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      L'enquête de <em>Maxi Marché</em> donne les résultats suivants (plusieurs réponses possibles) :
+      <table class="tableau-donnees">
+        <thead><tr><th>Freins des non-consommateurs</th><th>%</th><th>Avantages recherchés par les consommateurs</th><th>%</th></tr></thead>
+        <tbody>
+          <tr><td>Prix trop élevé</td><td class="num">80 %</td><td>Préserver sa santé</td><td class="num">59 %</td></tr>
+          <tr><td>Doute sur la qualité</td><td class="num">66 %</td><td>Qualité des produits</td><td class="num">51 %</td></tr>
+          <tr><td>Pas le réflexe d'en acheter</td><td class="num">37 %</td><td>Préserver l'environnement</td><td class="num">45 %</td></tr>
+          <tr><td>Offre non adaptée aux besoins</td><td class="num">27 %</td><td>Bien-être animal</td><td class="num">34 %</td></tr>
+          <tr><td>Manque d'information</td><td class="num">23 %</td><td>Préoccupations éthiques</td><td class="num">31 %</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Identifiez les deux freins principaux et les deux avantages les plus recherchés.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Pour chacun des cinq freins, proposez une action concrète et indiquez l'élément du plan de marchéage concerné.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Quel argument faudra-t-il mettre en avant dans la communication du rayon bio ? Justifiez.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Freins principaux : le prix (80 %) et le doute sur la qualité (66 %).</p>
+        <p class="res">Avantages les plus recherchés : la santé (59 %) et la qualité (51 %).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <table class="tableau-corr">
+          <thead><tr><th>Frein</th><th>Action proposée (exemples)</th><th>P concerné</th></tr></thead>
+          <tbody>
+            <tr><td>Prix trop élevé</td><td>Relevé de prix chez les concurrents, alignement si possible, promotions de lancement</td><td class="val">Prix</td></tr>
+            <tr><td>Doute sur la qualité</td><td>Mettre en avant les labels (AB, Eurofeuille) et l'origine des produits</td><td class="val">Produit / Promotion</td></tr>
+            <tr><td>Pas le réflexe</td><td>Placer les produits bio dans leur famille, à hauteur des yeux et des mains</td><td class="val">Place</td></tr>
+            <tr><td>Offre non adaptée</td><td>Commencer par les familles les plus achetées (fruits et légumes, produits laitiers)</td><td class="val">Produit</td></tr>
+            <tr><td>Manque d'information</td><td>Stop-rayons, panneaux, PLV expliquant les avantages du bio</td><td class="val">Promotion</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">La communication doit mettre en avant la qualité contrôlée des produits et leurs bienfaits pour la santé. Cet argument répond à la fois au principal avantage recherché par les consommateurs (santé) et au deuxième frein des non-consommateurs (doute sur la qualité).</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 3 – POSITIONNEMENT ET PLAN DE MARCHÉAGE
+══════════════════════════════════════════════════════════ -->
+<hr class="section-sep">
+<div class="bloc-titre" id="positionnement">
+  <span class="icone">🎯</span>
+  <h2>Bloc 3 – Positionner l'offre et adapter le plan de marchéage</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo méthode</div>
+  <code>Positionnement = place du produit, de la marque ou de l'enseigne dans l'esprit du client, par rapport aux concurrents (image, qualité, prix)</code>
+  <code>Mapping (carte perceptuelle) = représentation du positionnement sur deux axes</code>
+  <code>Plan de marchéage = 4 P : produit, prix, place (distribution), promotion (communication)</code>
+  <p class="note">Les 4 P doivent être <strong>cohérents entre eux</strong> et avec le positionnement. La revente à perte (vendre en dessous du prix d'achat) est <strong>interdite</strong>.</p>
+</div>
+
+<!-- EX 11 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 11</span>
+    <span class="badge badge-2">⬆⬆ intermédiaire</span>
+    <span class="exo-titre-txt">Lire et interpréter une carte de positionnement</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      <em>Maxi Marché</em> compare son offre bio à celle de trois enseignes concurrentes. La qualité perçue a été notée sur 10 par les clients interrogés.
+      <table class="tableau-donnees">
+        <thead><tr><th>Enseigne</th><th>Nombre de références bio</th><th>Qualité perçue (/10)</th></tr></thead>
+        <tbody>
+          <tr><td>Hyper Azur (hypermarché)</td><td class="num">4 200</td><td class="num">6</td></tr>
+          <tr><td>Maxi Marché (notre magasin)</td><td class="num">2 800</td><td class="num">7,5</td></tr>
+          <tr><td>Prix Malin (hard-discount)</td><td class="num">700</td><td class="num">3</td></tr>
+          <tr><td>Nature Bio (magasin spécialisé)</td><td class="num">1 800</td><td class="num">9</td></tr>
+        </tbody>
+      </table>
+      On trace un mapping avec le nombre de références en abscisse (axe central à 2 500) et la qualité perçue en ordonnée (axe central à 5).
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Quels sont les deux critères utilisés pour ce mapping ?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Pour chaque enseigne, indiquez dans quelle zone elle se situe (offre large ou restreinte ; qualité perçue haute ou basse).</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Commentez le positionnement de <em>Maxi Marché</em> et formulez une recommandation pour son rayon bio.</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Indice :</strong> une enseigne est « à offre large » si elle dépasse 2 500 références et « à qualité haute » si sa note dépasse 5.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Critères : la largeur de l'offre (nombre de références bio) et la qualité perçue.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <svg viewBox="0 0 320 240" style="width:100%;max-width:420px;background:#fff;border:1px solid #d3e9da;border-radius:6px;margin:6px 0;" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif" font-size="9">
+          <line x1="40" y1="210" x2="305" y2="210" stroke="#5d6478"/>
+          <line x1="40" y1="210" x2="40" y2="15" stroke="#5d6478"/>
+          <line x1="170" y1="15" x2="170" y2="210" stroke="#b9c0d3" stroke-dasharray="4 3"/>
+          <line x1="40" y1="115" x2="305" y2="115" stroke="#b9c0d3" stroke-dasharray="4 3"/>
+          <text x="300" y="225" text-anchor="end" fill="#5d6478">nombre de références →</text>
+          <text x="44" y="12" fill="#5d6478">↑ qualité perçue</text>
+          <text x="167" y="225" text-anchor="middle" fill="#5d6478">2 500</text>
+          <text x="35" y="118" text-anchor="end" fill="#5d6478">5</text>
+          <circle cx="258" cy="96" r="5" fill="#2f78c0"/><text x="252" y="88" text-anchor="middle" fill="#1f2433">Hyper Azur</text>
+          <circle cx="186" cy="68" r="6" fill="#e0a400"/><text x="194" y="64" fill="#1f2433" font-weight="700">Maxi Marché</text>
+          <circle cx="76" cy="153" r="5" fill="#c93838"/><text x="84" y="157" fill="#1f2433">Prix Malin</text>
+          <circle cx="134" cy="39" r="5" fill="#1d8f47"/><text x="126" y="31" text-anchor="middle" fill="#1f2433">Nature Bio</text>
+        </svg>
+        <table class="tableau-corr">
+          <thead><tr><th>Enseigne</th><th>Zone</th></tr></thead>
+          <tbody>
+            <tr><td>Hyper Azur</td><td class="val">Offre large, qualité perçue moyenne (6)</td></tr>
+            <tr><td>Maxi Marché</td><td class="val">Offre large, qualité perçue haute (7,5)</td></tr>
+            <tr><td>Prix Malin</td><td class="val">Offre restreinte, qualité perçue basse</td></tr>
+            <tr><td>Nature Bio</td><td class="val">Offre restreinte, qualité perçue très haute</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Maxi Marché bénéficie d'une bonne image de qualité, supérieure à celle de l'hypermarché concurrent, avec une offre déjà large. Il a intérêt à élargir progressivement sa gamme bio tout en continuant à rassurer sur la qualité et en évitant des prix trop élevés, pour se distinguer du magasin spécialisé, plus cher.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 12 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 12</span>
+    <span class="badge badge-3">⬆⬆⬆ niveau examen</span>
+    <span class="exo-titre-txt">Exploiter un relevé de prix pour fixer le bon prix</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      La parfumerie <em>Belle Essence</em> prépare une sélection de cadeaux pour la Saint-Valentin. Un relevé de prix TTC a été réalisé sur quatre produits comparables :
+      <table class="tableau-donnees">
+        <thead><tr><th>Produit</th><th>Belle Essence</th><th>Hypermarché</th><th>Enseigne à marque propre (cible jeune)</th><th>Parfumerie A</th><th>Parfumerie B</th></tr></thead>
+        <tbody>
+          <tr><td>Coffret parfum</td><td class="num">39 €</td><td class="num">25 €</td><td class="num">29 €</td><td class="num">45 €</td><td class="num">41 €</td></tr>
+          <tr><td>Rouge à lèvres</td><td class="num">18 €</td><td class="num">9 €</td><td class="num">7 €</td><td class="num">22 €</td><td class="num">19 €</td></tr>
+          <tr><td>Crème pour les mains</td><td class="num">9 €</td><td class="num">5 €</td><td class="num">6 €</td><td class="num">11 €</td><td class="num">10 €</td></tr>
+          <tr><td>Bougie parfumée</td><td class="num">22 €</td><td class="num">12 €</td><td class="num">14 €</td><td class="num">26 €</td><td class="num">24 €</td></tr>
+        </tbody>
+      </table>
+      Les parfumeries A et B proposent, comme <em>Belle Essence</em>, de grandes marques. L'hypermarché et l'enseigne à marque propre n'en vendent pas.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Calculez le prix moyen pratiqué par chaque point de vente.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Classez les points de vente du moins cher au plus cher.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Calculez l'écart en % entre le prix moyen de <em>Belle Essence</em> et celui de la parfumerie B (arrondir à 0,1 %).</p>
+      </div>
+      <div class="question">
+        <span class="q-num">4</span>
+        <p>Quels sont les concurrents directs de <em>Belle Essence</em> ? Quelle décision conseillez-vous au responsable ?</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Mémo :</strong> écart en % = (prix Belle Essence − prix concurrent) ÷ prix concurrent × 100.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <table class="tableau-corr">
+          <thead><tr><th>Point de vente</th><th>Calcul</th><th>Prix moyen</th></tr></thead>
+          <tbody>
+            <tr><td>Belle Essence</td><td>(39 + 18 + 9 + 22) ÷ 4 = 88 ÷ 4</td><td class="val">22,00 €</td></tr>
+            <tr><td>Hypermarché</td><td>(25 + 9 + 5 + 12) ÷ 4 = 51 ÷ 4</td><td class="val">12,75 €</td></tr>
+            <tr><td>Enseigne à marque propre</td><td>(29 + 7 + 6 + 14) ÷ 4 = 56 ÷ 4</td><td class="val">14,00 €</td></tr>
+            <tr><td>Parfumerie A</td><td>(45 + 22 + 11 + 26) ÷ 4 = 104 ÷ 4</td><td class="val">26,00 €</td></tr>
+            <tr><td>Parfumerie B</td><td>(41 + 19 + 10 + 24) ÷ 4 = 94 ÷ 4</td><td class="val">23,50 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Hypermarché (12,75 €) &lt; enseigne à marque propre (14,00 €) &lt; Belle Essence (22,00 €) &lt; parfumerie B (23,50 €) &lt; parfumerie A (26,00 €)</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <code>(22,00 − 23,50) ÷ 23,50 × 100 = − 6,4 %</code>
+        <p class="res">Belle Essence est <strong>6,4 % moins chère</strong> que la parfumerie B.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span>
+        <p class="res">Concurrents directs : les parfumeries A et B (même positionnement, grandes marques).</p>
+        <p class="conclu">Belle Essence est la moins chère de ses concurrents directs. Il ne faut pas chercher à s'aligner sur l'hypermarché ou l'enseigne à marque propre, qui ont un autre positionnement et une autre clientèle. Je conseille de maintenir les prix actuels, cohérents avec l'image de grandes marques de la parfumerie.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 13 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 13</span>
+    <span class="badge badge-3">⬆⬆⬆ niveau examen</span>
+    <span class="exo-titre-txt">Trier des actions pour construire un plan de marchéage cohérent</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      <em>Maxi Marché</em> veut se positionner sur un <strong>bio accessible et de qualité</strong>. L'équipe a proposé les actions suivantes :<br><br>
+      1. Proposer, dans un premier temps, uniquement les familles de produits bio les plus achetées (fruits et légumes, produits laitiers)<br>
+      2. Créer la marque « Maxi Marché Bio »<br>
+      3. Réaliser un relevé de prix chez les concurrents directs<br>
+      4. S'aligner sur le prix le plus bas relevé, même s'il est inférieur au prix d'achat<br>
+      5. S'aligner sur les prix du magasin bio spécialisé du centre-ville<br>
+      6. Emballer chaque fruit et légume bio dans un film plastique pour le distinguer<br>
+      7. Vendre en vrac avec des sacs réutilisables<br>
+      8. Présenter les produits bio dans leur famille, à hauteur des yeux et des mains<br>
+      9. Installer des stop-rayons et de la PLV signalant les produits bio<br>
+      10. Utiliser des présentoirs en matériaux recyclables
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Pour chaque action, indiquez l'élément du plan de marchéage concerné.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Indiquez si l'action doit être retenue ou rejetée et justifiez.</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Indice :</strong> trois actions sont à rejeter. Pensez à la loi, à la cible et à l'esprit du bio.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <table class="tableau-corr">
+          <thead><tr><th>N°</th><th>P</th><th>Décision</th><th>Justification</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Produit</td><td class="val">Retenue</td><td>On commence par ce que les clients achètent le plus ; l'offre sera élargie ensuite.</td></tr>
+            <tr><td>2</td><td>Produit</td><td class="val">Retenue</td><td>Nom facile à retenir, associe l'enseigne et le bio.</td></tr>
+            <tr><td>3</td><td>Prix</td><td class="val">Retenue</td><td>Permet de situer les prix par rapport aux concurrents directs.</td></tr>
+            <tr><td>4</td><td>Prix</td><td class="val">Rejetée</td><td>La revente à perte est interdite.</td></tr>
+            <tr><td>5</td><td>Prix</td><td class="val">Rejetée</td><td>Le magasin spécialisé est plus cher : incohérent avec un bio accessible et avec le frein prix.</td></tr>
+            <tr><td>6</td><td>Place (présentation)</td><td class="val">Rejetée</td><td>Contraire à l'esprit bio et à la préservation de l'environnement.</td></tr>
+            <tr><td>7</td><td>Place</td><td class="val">Retenue</td><td>Cohérent avec les attentes environnementales des clients.</td></tr>
+            <tr><td>8</td><td>Place</td><td class="val">Retenue</td><td>Zones les plus vendeuses ; donne le réflexe d'achat.</td></tr>
+            <tr><td>9</td><td>Promotion</td><td class="val">Retenue</td><td>Informe durablement les clients, répond au manque d'information.</td></tr>
+            <tr><td>10</td><td>Place</td><td class="val">Retenue</td><td>Cohérent avec l'image bio et responsable.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 14 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 14</span>
+    <span class="badge badge-3">⬆⬆⬆ niveau examen</span>
+    <span class="exo-titre-txt">Adapter le plan de marchéage à un positionnement haut de gamme</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Un fabricant lance une nouvelle imprimante <strong>positionnée haut de gamme</strong>. Descriptif : imprimante connectée, stockage des documents dans le cloud, compatible avec les smartphones et tablettes, accès sécurisé aux documents, grande fiabilité, utilisation simple.<br><br>
+      Pour chaque élément du plan de marchéage, deux options sont envisagées :
+      <table class="tableau-donnees">
+        <thead><tr><th>P</th><th>Option A</th><th>Option B</th></tr></thead>
+        <tbody>
+          <tr><td>Produit</td><td>Retirer la connexion et le cloud pour simplifier</td><td>Conserver toutes les fonctions innovantes</td></tr>
+          <tr><td>Prix</td><td>Prix élevé (stratégie d'écrémage)</td><td>Prix bas pour conquérir vite le marché (stratégie de pénétration)</td></tr>
+          <tr><td>Place</td><td>Vente en libre-service dans toutes les grandes surfaces (distribution intensive)</td><td>Vente chez des distributeurs spécialisés en informatique (distribution sélective)</td></tr>
+          <tr><td>Promotion</td><td>PLV fournie aux distributeurs, mode d'emploi sur internet, tchat pour répondre aux clients</td><td>Prospectus de promotion distribués en boîtes aux lettres</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Choisissez, pour chaque P, l'option cohérente avec le positionnement haut de gamme. Justifiez.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Expliquez ce qui se passerait si le fabricant choisissait un prix bas avec ce positionnement.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <table class="tableau-corr">
+          <thead><tr><th>P</th><th>Choix</th><th>Justification</th></tr></thead>
+          <tbody>
+            <tr><td>Produit</td><td class="val">Option B</td><td>Les fonctions innovantes justifient le haut de gamme.</td></tr>
+            <tr><td>Prix</td><td class="val">Option A</td><td>Un prix élevé (écrémage) correspond à l'image haut de gamme.</td></tr>
+            <tr><td>Place</td><td class="val">Option B</td><td>Les distributeurs spécialisés apportent du conseil, nécessaire pour un produit technique.</td></tr>
+            <tr><td>Promotion</td><td class="val">Option A</td><td>Communication sur le lieu de vente et assistance en ligne, cohérentes avec un produit connecté et premium.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="conclu">Un prix bas serait incohérent avec le positionnement : il donnerait une image de produit bas de gamme, ferait douter de la qualité et ne permettrait pas de rentabiliser l'innovation. Les éléments du plan de marchéage doivent tous envoyer le même message au client.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 15 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 15</span>
+    <span class="badge badge-exam">🏁 sujet complet</span>
+    <span class="exo-titre-txt">Démarche mercatique complète – relancer un rayon bio</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Le supermarché <em>Maxi Marché</em> constate que son rayon bio ne correspond plus aux attentes des clients. Le responsable a fait réaliser une enquête auprès de <strong>200 clients</strong>.<br><br>
+      <strong>Document 1 – Résultats de l'enquête</strong><br>
+      • 60 % des clients interrogés achètent des produits bio.<br>
+      • Les non-consommateurs citent comme frein le prix (70 %) et le manque d'information (30 %).<br><br>
+      <strong>Document 2 – Segments des consommateurs de bio</strong>
+      <table class="tableau-donnees">
+        <thead><tr><th>Segment</th><th>Part des consommateurs</th><th>Dépense moyenne / mois</th><th>Avantage recherché</th></tr></thead>
+        <tbody>
+          <tr><td>Familles avec enfants</td><td class="num">40 %</td><td class="num">75 €</td><td>Santé des enfants</td></tr>
+          <tr><td>Retraités</td><td class="num">35 %</td><td class="num">60 €</td><td>Qualité, goût</td></tr>
+          <tr><td>Étudiants et jeunes actifs</td><td class="num">25 %</td><td class="num">25 €</td><td>Environnement</td></tr>
+        </tbody>
+      </table>
+      <strong>Document 3 – Positionnement des concurrents</strong><br>
+      L'hypermarché voisin propose une large gamme bio de qualité correcte. Le magasin spécialisé propose des produits de très bonne qualité mais à des prix élevés.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>À quelle phase de la démarche mercatique correspond l'enquête ? Citez les deux phases suivantes.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Calculez le nombre de consommateurs et de non-consommateurs, puis le nombre de non-consommateurs concernés par chaque frein.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Calculez le nombre de clients et le CA potentiel mensuel de chaque segment, puis le CA potentiel total.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">4</span>
+        <p>Choisissez la cible prioritaire et justifiez avec un pourcentage (arrondir à 0,1 %).</p>
+      </div>
+      <div class="question">
+        <span class="q-num">5</span>
+        <p>Proposez, en une phrase, un positionnement pour le rayon bio de <em>Maxi Marché</em>.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">6</span>
+        <p>Proposez une action pour chaque élément du plan de marchéage, cohérente avec la cible et le positionnement choisis.</p>
+      </div>
+    </div>
+    <div class="ordre-grandeur"><strong>Ordre de grandeur :</strong> 120 consommateurs, dépense moyenne entre 25 et 75 € → CA potentiel total de quelques milliers d'euros par mois (entre 3 000 et 9 000 €).</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction complète</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">L'enquête correspond à la phase d'étude. Elle sera suivie de la phase stratégique puis de la phase opérationnelle.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <code>Consommateurs : 200 × 0,60 = 120</code>
+        <code>Non-consommateurs : 200 − 120 = 80</code>
+        <code>Frein prix : 80 × 0,70 = 56</code>
+        <code>Frein manque d'information : 80 × 0,30 = 24</code>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <table class="tableau-corr">
+          <thead><tr><th>Segment</th><th>Clients</th><th>CA potentiel</th></tr></thead>
+          <tbody>
+            <tr><td>Familles avec enfants</td><td>120 × 0,40 = 48</td><td class="val">48 × 75 = 3 600 €</td></tr>
+            <tr><td>Retraités</td><td>120 × 0,35 = 42</td><td class="val">42 × 60 = 2 520 €</td></tr>
+            <tr><td>Étudiants et jeunes actifs</td><td>120 × 0,25 = 30</td><td class="val">30 × 25 = 750 €</td></tr>
+            <tr class="t-total"><td colspan="2">CA potentiel total mensuel</td><td class="val">6 870 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span>
+        <code>3 600 ÷ 6 870 × 100 = 52,4 %</code>
+        <p class="res">Cible prioritaire : <strong>les familles avec enfants</strong>.</p>
+        <p class="conclu">C'est le segment le plus nombreux (48 clients) et celui qui dépense le plus (75 € par mois). Il représente 52,4 % du CA potentiel.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">5</span>
+        <p class="conclu">Exemple : « Un bio de qualité, bon pour la santé de toute la famille, à des prix accessibles. » Ce positionnement se situe entre l'hypermarché (qualité correcte) et le magasin spécialisé (très bonne qualité mais cher).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">6</span>
+        <table class="tableau-corr">
+          <thead><tr><th>P</th><th>Action proposée (exemples)</th></tr></thead>
+          <tbody>
+            <tr><td>Produit</td><td>Développer les fruits et légumes et les produits laitiers bio adaptés aux enfants (yaourts, compotes), sous une marque « Maxi Marché Bio ».</td></tr>
+            <tr><td>Prix</td><td>Relevé de prix chez l'hypermarché ; alignement si Maxi Marché est plus cher, sans revendre à perte ; lots familiaux.</td></tr>
+            <tr><td>Place</td><td>Produits bio placés dans leur famille, à hauteur des yeux et des mains ; îlot bio à l'entrée ; vente en vrac.</td></tr>
+            <tr><td>Promotion</td><td>Stop-rayons et PLV mettant en avant les labels et les bienfaits pour la santé ; publications sur les réseaux sociaux du magasin.</td></tr>
+          </tbody>
+        </table>
+        <p class="conclu">Ces actions répondent aux deux freins (prix et manque d'information) et à l'avantage recherché par la cible (santé des enfants).</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+</main>
+
+<footer class="site-footer">
+  Bac pro MCV – Bloc 3 : fidéliser la clientèle et développer la relation client &nbsp;|&nbsp; 15 exercices progressifs – Adopter une démarche mercatique
+</footer>
+
+<script>
+function toggleCorr(btn) {
+  const corr = btn.nextElementSibling;
+  const isVisible = corr.classList.contains('visible');
+  corr.classList.toggle('visible', !isVisible);
+  btn.textContent = isVisible ? '✅ Voir la correction' : '🔒 Masquer la correction';
+}
+</script>
+
+</body>
+</html>
